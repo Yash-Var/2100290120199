@@ -15,7 +15,7 @@ const BrowserRouter = createBrowserRouter([
     element: <SingleProduct />,
   },
   {
-    path: "/f",
+    path: "/filter",
     element: <Filterdata />,
   },
 ]);

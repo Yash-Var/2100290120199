@@ -27,6 +27,10 @@ const AllProducts = () => {
         <h1 className="text-3xl font-bold text-white mb-8">
           Browse Our Collection
         </h1>
+        <Link to="/filter">
+          <button>Filter Button</button>
+        </Link>
+
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <table className="min-w-full">
             <thead>
