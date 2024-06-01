@@ -5,8 +5,8 @@ const bodyParser = require("body-parser");
 app.use(express.json());
 const port = 5000;
 const db = require("./connectDB/connect");
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/check", (req, res) => {
   res.send("hello world");
@@ -130,6 +130,23 @@ app.get("/products", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+app.get("/product", async (req, res) => {
+  try {
+    const { page } = req.query;
+    const currentPage = parseInt(page, 10) || 1;
+    const limit = 10;
+    const offset = (currentPage - 1) * limit;
+
+    const [data] = await db
+      .promise()
+      .query("SELECT * FROM products LIMIT ? OFFSET ?", [limit, offset]);
+
+    res.status(200).json({ message: "Products retrieved", data: data });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
