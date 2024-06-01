@@ -1,127 +1,104 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
+
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(1);
+
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/product?page=" + count
+        `http://localhost:5000/product?page=${count}`
       );
-      console.log(response.data.data);
       setProducts(response.data.data);
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
     fetchProducts();
   }, [count]);
+
   return (
-    <div className="bg-gray-100 p-8">
+    <div className="bg-gradient-to-r from-purple-400 to-indigo-500 min-h-screen py-8">
       <div className="container mx-auto">
-        <table className="min-w-full bg-white border border-gray-200 shadow-lg rounded-lg">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold">
-                <div className="flex flex-row justify-between">
-                  <p>Product Name</p>
-                  <button>:</button>
-                </div>
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold ">
-                <div className="flex flex-row justify-between">
-                  <p>Price</p>
-                  <button>:</button>
-                </div>
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold">
-                <div className="flex flex-row justify-between">
-                  <p>Rating</p>
-                  <button>:</button>
-                </div>
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold">
-                <div className="flex flex-row justify-between">
-                  <p>Discount</p>
-                  <button>:</button>
-                </div>
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold">
-                <div className="flex flex-row justify-between">
-                  <p>Availability</p>
-                  <button>:</button>
-                </div>
-              </th>
-              <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-gray-800 font-semibold">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          {products.length > 0 ? (
+        <h1 className="text-3xl font-bold text-white mb-8">
+          Browse Our Collection
+        </h1>
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+                <th className="py-3 px-4 text-left">Product Name</th>
+                <th className="py-3 px-4 text-left">Price</th>
+                <th className="py-3 px-4 text-left">Rating</th>
+                <th className="py-3 px-4 text-left">Discount</th>
+                <th className="py-3 px-4 text-left">Availability</th>
+                <th className="py-3 px-4 text-left">Actions</th>
+              </tr>
+            </thead>
             <tbody>
-              {products?.map((product, index) => (
-                <tr key={index} className="hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b border-gray-200 text-gray-800">
-                    {product.name_pro}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200 text-gray-700">
-                    ${product.price.toFixed(2)}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200 text-yellow-500">
-                    {product.rating} stars
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200 text-green-600">
-                    {product.discount}% off
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-200">
-                    {product.availability === "yes" ? (
-                      <span className="text-green-600">Yes</span>
-                    ) : (
-                      <span className="text-red-600">Out of stock</span>
-                    )}
-                  </td>
-                  <td>
-                    <Link
-                      to={`/product/${index}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      View Product
-                    </Link>
+              {products.length > 0 ? (
+                products.map((product, index) => (
+                  <tr key={index} className="border-b border-gray-200">
+                    <td className="py-4 px-4">{product.name_pro}</td>
+                    <td className="py-4 px-4">${product.price.toFixed(2)}</td>
+                    <td className="py-4 px-4 text-yellow-600">
+                      {product.rating} stars
+                    </td>
+                    <td className="py-4 px-4 text-green-600">
+                      {product.discount}% off
+                    </td>
+                    <td className="py-4 px-4">
+                      {product.availability === "yes" ? (
+                        <span className="text-green-600">In Stock</span>
+                      ) : (
+                        <span className="text-red-600">Out of Stock</span>
+                      )}
+                    </td>
+                    <td className="py-4 px-4">
+                      <Link
+                        to={`/product/${index}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        View Product
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center py-4">
+                    No products found
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <td colSpan="6" className="text-center py-4">
-                  No products found
-                </td>
-              </tr>
-            </tbody>
-          )}
-        </table>
-        <div className="flex justify-end">
-          {count > 1 && (
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg m-4"
-              onClick={() => {
-                setCount(count - 1);
-              }}
-            >
-              Prev
-            </button>
-          )}
+          </table>
+        </div>
+        <div className="flex justify-between mt-8">
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg m-4"
+            className={`bg-purple-600 text-white px-4 py-2 rounded-lg ${
+              count === 1 ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            onClick={() => {
+              if (count > 1) {
+                setCount(count - 1);
+              }
+            }}
+            disabled={count === 1}
+          >
+            Prev
+          </button>
+          <button
+            className="bg-purple-600 text-white px-4 py-2 rounded-lg"
             onClick={() => {
               setCount(count + 1);
             }}
           >
-            next
+            Next
           </button>
         </div>
       </div>

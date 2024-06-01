@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import AllProducts from "./Components/AllProducts";
 import SingleProduct from "./Components/SingleProduct";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Filterdata from "./Components/Filterdata";
 const BrowserRouter = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +13,10 @@ const BrowserRouter = createBrowserRouter([
   {
     path: "/product/:id",
     element: <SingleProduct />,
+  },
+  {
+    path: "/f",
+    element: <Filterdata />,
   },
 ]);
 function App() {
