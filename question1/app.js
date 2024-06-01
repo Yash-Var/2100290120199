@@ -122,6 +122,14 @@ app.get("/getProductsByPriceRange", async (req, res) => {
   }
 });
 
+app.get("/products", async (req, res) => {
+  try {
+    const data = await db.promise().query("SELECT * FROM products");
+    res.status(200).json({ message: "Products retrieved", data: data });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
