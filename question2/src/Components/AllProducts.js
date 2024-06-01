@@ -64,7 +64,7 @@ const AllProducts = () => {
                     </td>
                     <td className="py-4 px-4">
                       <Link
-                        to={`/product/${index}`}
+                        to={`/product/${product.id_products}`}
                         className="text-blue-500 hover:underline"
                       >
                         View Product
