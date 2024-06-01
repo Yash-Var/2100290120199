@@ -225,3 +225,17 @@ INSERT INTO products (name_pro, price, rating, discount, availability, category_
 ('Vitamin B12 Supplement', 20, 5, 5, 'yes', 10),
 ('Elderberry Gummies', 25, 4, 20, 'yes', 10);
 
+
+
+![Screenshot of Feature X](./Screenshot%20from%202024-06-01%2013-15-40.png)
+
+![Screenshot of Feature y](./Screenshot%20from%202024-06-01%2013-16-07.png)
+ 
+ ![Screenshot of Feature y](./Screenshot%20from%202024-06-01%2013-16-21.png)
+
+ ![Screenshot of Feature y](./Screenshot%20from%202024-06-01%2013-16-40.png)
+
+ ![Screenshot of Feature y](./Screenshot%20from%202024-06-01%2013-16-45.png)
+ ![Screenshot of Feature y](./Screenshot%20from%202024-06-01%2013-47-51.png)
+
+ ![Screenshot of Feature](./Screenshot%20from%202024-06-01%2013-47-57.png)
